@@ -256,7 +256,18 @@ public class AmazonSNSNotifier extends Notifier {
         }
 
         String region = arnParts[3];
-        return "sns." + region + ".amazonaws.com";
+        
+        
+        // In China, the aws endpoint domain is ".amazonaws.com.cn", others are ".amazonaws.com"
+        String domain = "";
+        int a=region.indexOf("cn");
+        if (a == 0){
+            domain = ".amazonaws.com.cn";
+        } else {
+            domain = ".amazonaws.com"
+        }
+        
+        return "sns." + region + domain;
     }
 
 
